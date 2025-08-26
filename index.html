@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARAR.05.007</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
+        :root {
+            --main-bg-color: #0a0a12;
+            --text-color: #c7c7d1;
+            --accent-color: #ff2a6d;
+            --glow-color: rgba(255, 42, 109, 0.5);
+            --border-color: #2a2a4a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--main-bg-color);
+            color: var(--text-color);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(42, 42, 74, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(42, 42, 74, 0.2) 0%, transparent 20%),
+                linear-gradient(rgba(10, 10, 18, 0.9), rgba(10, 10, 18, 0.9)),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232a2a4a' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 15px var(--glow-color);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            animation: scanline 3s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .glitch-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            position: relative;
+            animation: text-flicker 5s infinite alternate;
+        }
+        
+        @keyframes text-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 5px var(--accent-color),
+                    0 0 10px var(--glow-color);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.8;
+            }
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            background: #1a1a2a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 3;
+            image-rendering: crisp-edges;
+            filter: grayscale(0.3) contrast(1.2);
+        }
+        
+        .profile-image::before {
+            content: "";
+            color: var(--text-color);
+            font-size: 0.8rem;
+            text-align: center;
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .profile-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49%, rgba(255, 42, 109, 0.1) 50%, transparent 51%);
+            background-size: 10px 10px;
+            animation: static 0.5s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes static {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 10px; }
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+        }
+        
+        .bio {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .bio::before {
+            content: ">";
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: rgba(255, 42, 109, 0.2);
+            border: 1px solid var(--accent-color);
+            animation: status-pulse 2s infinite alternate;
+        }
+        
+        @keyframes status-pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .footnote {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #6a6a8a;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 0, 0, 0);
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            animation: glitch-anim-1 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: 1px 0 blue;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(24px, 9999px, 23px, 0); }
+            100% { clip: rect(32px, 9999px, 92px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glitch-container">
+            <h1 class="glitch" data-text="ARAR.05.007">ARAR.05.007</h1>
+        </div>
+        
+        <div class="profile-image">
+            <img src="ARAR_ЛД.webp" alt="ARAR.05.007" class="profile-img">
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Внешность</div>
+                <div class="info-value">Реплика ARAR</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Оболочка</div>
+                <div class="info-value">Реплика</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Фракция</div>
+                <div class="info-value">Нация Евсан. Рабочий Союз.</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Статус</div>
+                <div class="info-value"><span class="status">ЖИВА</span></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Стартовые предметы:</div>
+                <div class="info-value">Ааа</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Дата активации</div>
+                <div class="info-value">19-12-2155</div>
+            </div>
+        </div>
+        
+        <div class="bio">
+            ARAR.05.007. Была создана, активирована 19 декабря 2155 года. На тот момент получила номер "Седьмая", и называлась так с момента своего создания - по сей день, ну или просто Ара. Седьмая работала на Рот-фронте с множественными системами, генераторами, хоть и имела мало опыта в работе с ними - но, очень старалась, от чего результат продуктивности той был достаточно хороший, как и у всех Арочек, реплика очень часто посещала оранжерею там, и.. выращивала свои арбузы, особенно - обожала их кушать, когда они созревают, это было буквально увлечение всей её жизни, без вкуса арбузиков - она не знала света. Но вот.. в один момент оранжерея на Рот-фронте была сожжена в результате несчастного случая, и реплика начала быстро деградировать, что было быстро замечено и пресечено, стабилизировав её и отведя в очередную оранжерею. Это.. сильно ударило по реплике, однако из-за сомнений в продуктивности реплики после одной деградации - она была направлена на объект ERES, куда прибывает с минуты на минуту. По крайней мере, ей пообещали, что там.. будут вкусные арбузики. И она радовалась этому.
+        </div>
+        
+        <div class="footnote">
+            Ара-ара~
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    glitchElements.forEach(el => {
+                        el.classList.add('glitch-effect');
+                    });
+                    
+                    setTimeout(() => {
+                        glitchElements.forEach(el => {
+                            el.classList.remove('glitch-effect');
+                        });
+                    }, 200);
+                }
+            }, 5000);
+            
+            const headings = document.querySelectorAll('h1, .info-value');
+            
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const randomHeading = headings[Math.floor(Math.random() * headings.length)];
+                    randomHeading.style.opacity = 0.5;
+                    
+                    setTimeout(() => {
+                        randomHeading.style.opacity = 1;
+                    }, 100);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
